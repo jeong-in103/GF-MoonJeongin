@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <cstdlib>
 
 SDL_Window* g_pWindow = 0; // 윈도우 관련 정보 저장
 SDL_Renderer* g_pRenderer = 0; // 랜더링 상태를 포함하는 구조체
@@ -21,9 +22,13 @@ bool init(const char* title, int xpos, int ypos,
     return false;
   }
 
-  SDL_SetRenderDrawColor(g_pRenderer, 0, 0, 0, 255); // 그리기 동작에 사용할 색 지정
-
   return true;
+}
+
+void changeColor() // 렌더링 색을 랜덤으로 전환한다.
+{
+  SDL_SetRenderDrawColor(g_pRenderer, rand() % 255, rand() % 255, rand() % 255, 255);
+  SDL_Delay(1000);
 }
 
 void render()
@@ -34,7 +39,7 @@ void render()
 
 int main(int argc, char* args[])
 {
-  if(init("Breaking Up helloSDL",
+  if(init("partySDL",
           SDL_WINDOWPOS_CENTERED,
           SDL_WINDOWPOS_CENTERED,
           640, 480,
@@ -50,6 +55,8 @@ int main(int argc, char* args[])
   while(g_bRunning)
   {
     // handle input - update - render
+    changeColor();
+
     render();
   }
 
