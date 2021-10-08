@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "SDL_image.h"
 #include <iostream>
+#include "TextureManager.h"
 
 //키보드 입력 추가
 
@@ -25,32 +26,37 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
   SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
 
-  SDL_Surface* pTempSurface = IMG_Load("Assets/pngwing.com.png");
-  if(pTempSurface == 0)
+  if(!TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
   {
     return false;
   }
 
-  m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+  //SDL_Surface* pTempSurface = IMG_Load("Assets/pngwing.com.png");
+  //if(pTempSurface == 0)
+  //{
+  //  return false;
+  //}
 
-  SDL_FreeSurface(pTempSurface);
+  //m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
 
-  SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+  //SDL_FreeSurface(pTempSurface);
+
+  //SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
   
 
-  std::cout << "w : " << m_sourceRectangle.w << "\n" << "h : " << m_sourceRectangle.h << std::endl;
+  //std::cout << "w : " << m_sourceRectangle.w << "\n" << "h : " << m_sourceRectangle.h << //std::endl;
 
-  m_sourceRectangle.w = 230;
-  m_sourceRectangle.h = 320;
+  //m_sourceRectangle.w = 230;
+  //m_sourceRectangle.h = 320;
 
-  m_sourceRectangle.x = 0;
-  m_sourceRectangle.y = 0;
+  //m_sourceRectangle.x = 0;
+  //m_sourceRectangle.y = 0;
 
-  m_destinationRectangle.w = m_sourceRectangle.w;
-  m_destinationRectangle.h = m_sourceRectangle.h;
+  //m_destinationRectangle.w = m_sourceRectangle.w;
+  //m_destinationRectangle.h = m_sourceRectangle.h;
 
-  m_destinationRectangle.x = 0;
-  m_destinationRectangle.y = 0;
+  //m_destinationRectangle.x = 0;
+  //m_destinationRectangle.y = 0;
 
   m_bRunning = true;
 
@@ -59,13 +65,15 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-  m_sourceRectangle.x = 256 * ((SDL_GetTicks() / 100) % 4);
+  m_currentFrame = ((SDL_GetTicks() / 100) % 6);
 }
 
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
-  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+  TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
+  TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+  //SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
   //SDL_RenderCopyEx(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle, 0, 0, SDL_FLIP_HORIZONTAL);
   SDL_RenderPresent(m_pRenderer);
 }
@@ -92,11 +100,11 @@ void Game::handleEvents()
         }
         else if(event.key.keysym.sym == SDLK_LEFT)
         {
-          m_destinationRectangle.x -= 10;
+          //m_destinationRectangle.x -= 10;
         }
         else if(event.key.keysym.sym == SDLK_RIGHT)
         {
-          m_destinationRectangle.x += 10;
+          //m_destinationRectangle.x += 10;
         }
 
       default:

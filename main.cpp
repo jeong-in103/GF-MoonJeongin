@@ -3,6 +3,8 @@
 
 Game* g_game = 0;
 
+// 정인이 열공 하렴. ^^ 
+
 int main(int argc, char* argv[])
 {
   g_game = new Game();
