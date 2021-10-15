@@ -1,9 +1,11 @@
+//완료한 실습
+// 10/15
+// 상속, 다형성
+
 #include "Game.h"
 #include <stdio.h>
 
 Game* g_game = 0;
-
-// 정인이 열공 하렴. ^^ 
 
 int main(int argc, char* argv[])
 {
@@ -15,6 +17,7 @@ int main(int argc, char* argv[])
     g_game->handleEvents();
     g_game->update();
     g_game->render();
+    SDL_Delay(10);
   }
   g_game->clean();
   return 0;
