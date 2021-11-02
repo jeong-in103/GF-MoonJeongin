@@ -1,14 +1,15 @@
-#include "GameObject.h"
-#include <string>
-#include <SDL.h>
+#ifndef __Player__
+#define __Player__
 
-class Player : public GameObject
+#include "SDLGameObject.h"
+
+class Player : public SDLGameObject
 {
 public:
-  void load(int x, int y, int width, int height, std::string textureID);
-
-  void draw(SDL_Renderer* pRenderer);
-  void update();
-  
-  void clean() {};
+  Player(const LoaderParams* pParams);
+  virtual void draw();
+  virtual void update();
+  virtual void clean();
 };
+
+#endif

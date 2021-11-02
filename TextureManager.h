@@ -1,3 +1,6 @@
+#ifndef __TextureManager__
+#define __TextureManager__
+
 #include "SDL.h"
 #include <map>
 
@@ -33,3 +36,5 @@ private :
 };
 
 typedef TextureManager TheTextureManager;
+
+#endif
