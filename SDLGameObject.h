@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "Vector2D.h"
+#include "SDL.h"
 
 class SDLGameObject : public GameObject
 {
@@ -15,11 +16,14 @@ public :
 
 protected :
   Vector2D m_position;
+  Vector2D m_velocity;
+  Vector2D m_acceleration;
   int m_width;
   int m_height;
   int m_currentRow;
   int m_currentFrame;
   std::string m_textureID;
+  SDL_RendererFlip dir;
 };
 
 #endif

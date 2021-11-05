@@ -1,9 +1,7 @@
 #ifndef __GameObject__
 #define __GameObject__
 
-#include <string>
 #include "LoaderParams.h"
-#include "SDL.h"
 
 class GameObject
 {

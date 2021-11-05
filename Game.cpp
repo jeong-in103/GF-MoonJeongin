@@ -1,9 +1,8 @@
 #include "Game.h"
-#include "SDL_image.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "Enemy.h"
-#include <iostream>
+#include "InputHandler.h"
 
 Game* Game::s_pInstance = 0;
 
@@ -69,27 +68,12 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-  SDL_Event event;
-  if(SDL_PollEvent(&event))
-  {
-    switch (event.type)
-    {
-      case SDL_QUIT :
-        m_bRunning = false;
-        break;
-      case SDL_KEYDOWN :
-        if(event.key.keysym.sym == SDLK_ESCAPE)
-        {
-          m_bRunning = false;
-        }
-      default:
-        break;
-    }
-  }
+  TheInputHandler::Instance()->update();
 }
 
 void Game::clean()
 {
+  TheInputHandler::Instance()->clean();
   SDL_DestroyWindow(m_pWindow);
   SDL_DestroyRenderer(m_pRenderer);
   SDL_Quit();
